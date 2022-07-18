@@ -6,7 +6,7 @@ plugins {
 ext.versions = [
         'major':        0,
         'minor':        0,
-        'patch':        23,
+        'patch':        24,
 ]
 
 group = 'com.cincinnatiai'

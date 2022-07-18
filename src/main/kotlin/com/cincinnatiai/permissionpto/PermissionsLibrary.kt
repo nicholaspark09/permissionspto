@@ -4,21 +4,19 @@ package com.cincinnatiai.permissionpto
 import com.cincinnatiai.permissionpto.api.PermissionsApi
 import com.cincinnatiai.permissionpto.repository.PermissionsRepository
 import com.cincinnatiai.permissionpto.repository.PermissionsRepositoryContract
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class PermissionsLibrary private constructor(
     private val url: String,
-    private val apiKeyInterceptor: Interceptor? = null
+    private val apiKey: String? = null
 ) {
 
     private val okHttp: OkHttpClient by lazy {
         OkHttpClient.Builder().apply {
-            if (apiKeyInterceptor != null) {
-                addInterceptor(apiKeyInterceptor)
-            }
+            if (apiKey != null) {
+            } // TODO add api key interceptor later
         }.build()
     }
 
@@ -40,11 +38,11 @@ class PermissionsLibrary private constructor(
         @Volatile
         var INSTANCE: PermissionsLibrary? = null
 
-        fun init(url: String, apiKeyInterceptor: Interceptor? = null) {
+        fun init(url: String, apiKey: String? = null) {
             if (INSTANCE == null) {
                 synchronized(this) {
                     if (INSTANCE == null) {
-                        INSTANCE = PermissionsLibrary(url, apiKeyInterceptor)
+                        INSTANCE = PermissionsLibrary(url, apiKey)
                     }
                 }
             }
